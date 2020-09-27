@@ -97,4 +97,8 @@ public class AboutArticle {
             }
         }
     }
+
+    public static void AddArticleOfOnlineUser(User onlineUser, EntityManager em){
+
+    }
 }

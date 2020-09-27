@@ -3,6 +3,7 @@ package Service.Menus;
 import Repositories.UserDAO;
 import Service.Input.InputArea;
 import Service.Process.AboutArticle;
+import Service.Process.AboutOnlineUser;
 import Service.entities.User;
 
 import javax.persistence.EntityManager;
@@ -35,16 +36,24 @@ public final class WriterMenu {
                 case 2: {
                     AboutArticle.showArticleOfOnlineUser(onlineUser);
                     AboutArticle.EditArticleOfOnlineUser(onlineUser,em);
+                    userDAO.update(onlineUser);
                     break inner;
                 }
                 //Add
                 case 3: {
+                    userDAO.update(onlineUser);
+                    break;
+
                 }
 
                 case 4:{
-
+                    AboutOnlineUser.showUserInformation(onlineUser);
+                    break;
                 }
                 case 5:{
+                    AboutOnlineUser.editPassword(onlineUser,em);
+                    userDAO.update(onlineUser);
+                    break;
                 }
             }
         }

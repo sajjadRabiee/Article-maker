@@ -4,6 +4,7 @@ package Service.Menus;
 import Repositories.UserDAO;
 import Service.Input.InputArea;
 import Service.Process.AboutArticle;
+import Service.Process.AboutOnlineUser;
 import Service.entities.User;
 
 import javax.persistence.EntityManager;
@@ -48,6 +49,15 @@ public final class AdminMenu {
                 case 4:{
                 }
                 case 5:{
+                }
+                case 9:{
+                    AboutOnlineUser.showUserInformation(onlineUser);
+                    break;
+                }
+                case 10:{
+                    AboutOnlineUser.editPassword(onlineUser,em);
+                    userDAO.update(onlineUser);
+                    break;
                 }
             }
         }
