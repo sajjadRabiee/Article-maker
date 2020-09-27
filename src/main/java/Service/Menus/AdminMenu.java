@@ -3,6 +3,7 @@ package Service.Menus;
 
 import Repositories.UserDAO;
 import Service.Input.InputArea;
+import Service.Process.AboutAllUsers;
 import Service.Process.AboutArticle;
 import Service.Process.AboutOnlineUser;
 import Service.entities.User;
@@ -42,20 +43,33 @@ public final class AdminMenu {
                     break inner;
                 }
                 case 3: {
+                    //dar dast sakht
+                    System.out.println("dar dast sakht");
+                    break inner;
                 }
                 case 4:{
+                    AboutArticle.EditArticleOfOnlineUser(onlineUser,em);
+                    userDAO.update(onlineUser);
+                    break inner;
                 }
                 case 5:{
-
+                    AboutAllUsers.editRoleOfUsers(em);
+                    break inner;
                 }
                 case 6:{
-
+                    //dar dast sakht
+                    System.out.println("dar dast sakht");
+                    break inner;
                 }
                 case 7:{
-
+                    //dar dast sakht
+                    System.out.println("dar dast sakht");
+                    break inner;
                 }
                 case 8:{
-
+                    AboutArticle.AddArticleOfOnlineUser(onlineUser , em);
+                    userDAO.update(onlineUser);
+                    break inner;
                 }
                 case 9:{
                     AboutOnlineUser.showUserInformation(onlineUser);

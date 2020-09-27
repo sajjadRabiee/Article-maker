@@ -32,6 +32,7 @@ public class AboutAllUsers {
                     }else {
                         currentUser.setRole(StaticRoles.getAdminRole());
                     }
+                    userDAO.update(currentUser);
                 }else{
                     break;
                 }
@@ -39,7 +40,7 @@ public class AboutAllUsers {
         }
     }
 
-    public static void showAllUsers(EntityManager em){
+    private static void showAllUsers(EntityManager em){
         UserDAO userDAO = new UserDAO(em);
         for(User user : userDAO.selectAll()){
             System.out.println("-----------------------------------------------------------");
