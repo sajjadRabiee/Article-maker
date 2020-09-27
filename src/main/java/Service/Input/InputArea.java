@@ -83,4 +83,6 @@ public final class InputArea {
             return false;
         }
     }
+
+    public static String getName(){return sc.next();}
 }

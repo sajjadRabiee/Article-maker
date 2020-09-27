@@ -1,6 +1,7 @@
 package Service.Menus;
 
 
+import Repositories.UserDAO;
 import Service.Input.InputArea;
 import Service.Process.AboutArticle;
 import Service.entities.User;
@@ -9,6 +10,7 @@ import javax.persistence.EntityManager;
 
 public final class AdminMenu {
     public static void ShowAdminMenu(User onlineUser, EntityManager em){
+        UserDAO userDAO = new UserDAO(em);
         outter:
         while (true) {
             System.out.println("----------------------- Admin -----------------------\n" +
@@ -27,6 +29,7 @@ public final class AdminMenu {
             inner:
             switch (InputArea.getMenuNumber(10)) {
                 case 0: {
+                    userDAO.update(onlineUser);
                     break outter;
                 }
                 //Show

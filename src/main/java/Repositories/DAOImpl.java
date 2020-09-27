@@ -13,11 +13,11 @@ import java.util.Optional;
         {
                 @NamedQuery(
                         name = "find",
-                        query = "from :tableName e where e.:fieldName = :fieldValue")
+                        query = "select from :tableName e where e.:fieldName = :fieldValue")
                 ,
                 @NamedQuery(
                         name = "selectAll",
-                        query = "from :tableName")
+                        query = "select from :tableName")
                 ,
                 @NamedQuery(
                         name = "delete" ,

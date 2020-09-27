@@ -6,9 +6,10 @@ import Service.entities.User;
 
 import javax.persistence.EntityManager;
 import java.sql.Date;
+import java.util.Optional;
 
 public class Register {
-    public static void registerProcess(EntityManager em) {
+    public static User registerProcess(EntityManager em) {
         UserDAO userDAO = new UserDAO(em);
         User newUser = new User();
         System.out.println("Your welcome\n" +
@@ -16,7 +17,7 @@ public class Register {
         while (true) {
             System.out.print("please enter username : ");
             String username = InputArea.getUsername();
-            if (!userDAO.selectByName(username).isPresent()) {
+            if (!userDAO.selectByName(username).equals(Optional.empty())) {
                 System.out.println("this is already exist please enter another username");
                 continue;
             } else {
@@ -36,5 +37,6 @@ public class Register {
         newUser.setBirthday(birthday);
 
         userDAO.add(newUser);
+        return newUser;
     }
 }

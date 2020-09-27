@@ -24,20 +24,24 @@ public final class MainMenu {
             switch (InputArea.getMenuNumber(3)) {
                 //Login
                 case 1: {
-                    onlineUser = Login.loginProcess();
+                    onlineUser = Login.loginProcess(em);
                     if (onlineUser.getRole().getTitle() == "admin"){
                         AdminMenu.ShowAdminMenu(onlineUser,em);
                     }else if(onlineUser.getRole().getTitle() == "writer"){
                         WriterMenu.showWriterMenu(onlineUser,em);
                     }
+                    break;
                 }
                 //Register
                 case 2: {
-                    Register.registerProcess(em);
+                    onlineUser = Register.registerProcess(em);
+                    WriterMenu.showWriterMenu(onlineUser,em);
+                    break;
                 }
                 //Search
                 case 3: {
                     AboutArticle.showAllOfArticles(em);
+                    break;
                 }
             }
         }
