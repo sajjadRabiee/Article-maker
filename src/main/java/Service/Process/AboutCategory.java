@@ -20,7 +20,7 @@ public class AboutCategory {
         }
     }
 
-    public static Category chooseCategory(String s , EntityManager em){
+    public static Category chooseCategory(EntityManager em){
         CategoryDAO categoryDAO = new CategoryDAO(em);
         String titleCategory;
         System.out.println("please enter title of category you want : ");

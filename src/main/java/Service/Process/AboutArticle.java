@@ -3,9 +3,14 @@ package Service.Process;
 import Repositories.ArticleDAO;
 import Service.Input.InputArea;
 import Service.entities.Article;
+import Service.entities.Category;
 import Service.entities.User;
 
 import javax.persistence.EntityManager;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Optional;
 
 public class AboutArticle {
@@ -70,7 +75,7 @@ public class AboutArticle {
                                 onlineArticle.setTitle(articleTitle);
                                 break;
                             } else {
-                                System.out.println("this name has already exist in our article bank please choose another one :");
+                                System.out.println("this name has already exist in our article bank please choose another one : ");
                                 continue;
                             }
                         }
@@ -99,6 +104,41 @@ public class AboutArticle {
     }
 
     public static void AddArticleOfOnlineUser(User onlineUser, EntityManager em){
+        ArticleDAO articleDAO = new ArticleDAO(em);
+        Article onlineArticle = new Article();
+        onlineArticle.setUserOfArticle(onlineUser);
+        System.out.print("please type your Article title : ");
+        while(true) {
+            String ArticleTitle = InputArea.getName();
+            if (articleDAO.selectByName(ArticleTitle).equals(Optional.empty())) {
+                onlineArticle.setTitle(ArticleTitle);
+                break;
+            } else {
+                System.out.println("this name has already exist in our article bank please choose another one : ");
+                continue;
+            }
+        }
 
+        System.out.println("----- Categories you can choose -----");
+        AboutCategory.showAllCategory(em);
+        Category category = AboutCategory.chooseCategory(em);
+        onlineArticle.setCategory(category);
+
+        System.out.println("please type your brief : ");
+        String brief = InputArea.getText();
+        onlineArticle.setBrief(brief);
+
+        System.out.println("please type your content : ");
+        String content = InputArea.getText();
+        onlineArticle.setContent(content);
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date currentDate = new Date();
+        LocalDate localDate = LocalDate.parse(dateFormat.format(currentDate));
+        java.sql.Date date = java.sql.Date.valueOf(localDate);
+        onlineArticle.setCreateDate(date);
+        onlineArticle.setPublishDate(date);
+        onlineArticle.setPublished(false);
+        articleDAO.add(onlineArticle);
     }
 }
