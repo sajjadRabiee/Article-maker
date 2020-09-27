@@ -40,17 +40,20 @@ public final class InputArea {
         return number;
     }
 
+    public static String getNationalCode(){
+        return sc.next();
+    }
+
     public static Date getDate(){
         System.out.println("Choose your Date (in format yyyy-MM-dd) : ");
         String sDate = null;
-        while (!sc.next().matches("\\d{4}-\\d{2}-\\d{2}")){
+        while (!(sDate = sc.next()).matches("\\d{4}-\\d{2}-\\d{2}")){
             System.out.println("your format is not correct please try again :");
             sDate = sc.next();
             if(sDate.matches("\\d{4}-\\d{2}-\\d{2}")){
                 break;
             }
         }
-        sDate = sc.next();
         LocalDate localDate = LocalDate.parse(sDate);
         return Date.valueOf(localDate);
     }

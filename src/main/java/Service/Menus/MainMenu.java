@@ -33,7 +33,7 @@ public final class MainMenu {
                 }
                 //Register
                 case 2: {
-                    Register.registerProcess();
+                    Register.registerProcess(em);
                 }
                 //Search
                 case 3: {
