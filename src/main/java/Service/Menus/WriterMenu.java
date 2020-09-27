@@ -41,11 +41,10 @@ public final class WriterMenu {
                 }
                 //Add
                 case 3: {
+                    AboutArticle.AddArticleOfOnlineUser(onlineUser,em);
                     userDAO.update(onlineUser);
                     break;
-
                 }
-
                 case 4:{
                     AboutOnlineUser.showUserInformation(onlineUser);
                     break;

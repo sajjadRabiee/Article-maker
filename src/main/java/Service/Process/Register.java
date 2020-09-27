@@ -12,6 +12,7 @@ public class Register {
     public static User registerProcess(EntityManager em) {
         UserDAO userDAO = new UserDAO(em);
         User newUser = new User();
+        newUser.setRole(StaticRoles.getWriterRole());
         System.out.println("Your welcome\n" +
                 "Please enter your information below");
         while (true) {

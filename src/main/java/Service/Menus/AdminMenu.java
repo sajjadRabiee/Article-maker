@@ -33,22 +33,29 @@ public final class AdminMenu {
                     userDAO.update(onlineUser);
                     break outter;
                 }
-                //Show
                 case 1: {
                     AboutArticle.showAllOfArticles(em);
+                    break inner;
                 }
-                //Edit
                 case 2: {
                     AboutArticle.showArticleOfOnlineUser(onlineUser);
-                    break outter;
+                    break inner;
                 }
-                //Add
                 case 3: {
                 }
-
                 case 4:{
                 }
                 case 5:{
+
+                }
+                case 6:{
+
+                }
+                case 7:{
+
+                }
+                case 8:{
+
                 }
                 case 9:{
                     AboutOnlineUser.showUserInformation(onlineUser);

@@ -7,11 +7,13 @@ import javax.persistence.EntityManager;
 
 public class AboutOnlineUser {
     public static void showUserInformation(User onlineUser){
+        System.out.println("----- "+ onlineUser.getRole() +" -----");
         System.out.println("Your username : " + onlineUser.getUsername());
         System.out.println("Your National Code : " + onlineUser.getNationalCode());
         System.out.println("Your Birthday : " + onlineUser.getBirthday());
         System.out.println("Your Password : " + onlineUser.getPassword());
     }
+
     public static void editPassword(User onlineUser , EntityManager em){
         System.out.println("Please enter your old password : ");
         while(true) {
