@@ -1,10 +1,13 @@
 package Service.Menus;
 
 import Service.Input.InputArea;
+import Service.Process.AboutArticle;
 import Service.entities.User;
 
+import javax.persistence.EntityManager;
+
 public final class WriterMenu {
-    public static void showWriterMenu (User onlineUser){
+    public static void showWriterMenu (User onlineUser , EntityManager em){
         outter:
         while (true) {
             System.out.println("----------------------- Writer -----------------------\n" +
@@ -22,6 +25,7 @@ public final class WriterMenu {
                 }
                 //Show
                 case 1: {
+                    AboutArticle.showArticleOfOnlineUser(onlineUser);
                 }
                 //Edit
                 case 2: {

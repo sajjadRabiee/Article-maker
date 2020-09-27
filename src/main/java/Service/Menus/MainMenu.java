@@ -1,14 +1,17 @@
 package Service.Menus;
 
 import Service.Input.InputArea;
+import Service.Process.AboutArticle;
 import Service.Process.Login;
 import Service.Process.Register;
 import Service.entities.User;
 
+import javax.persistence.EntityManager;
+
 public final class MainMenu {
     public static User onlineUser = new User();
 
-    public static void showMenu() {
+    public static void showMenu(EntityManager em) {
 
         firstPage:
         while (true) {
@@ -23,9 +26,9 @@ public final class MainMenu {
                 case 1: {
                     onlineUser = Login.loginProcess();
                     if (onlineUser.getRole().getTitle() == "admin"){
-                        AdminMenu.ShowAdminMenu(onlineUser);
+                        AdminMenu.ShowAdminMenu(onlineUser,em);
                     }else if(onlineUser.getRole().getTitle() == "writer"){
-                        WriterMenu.showWriterMenu(onlineUser);
+                        WriterMenu.showWriterMenu(onlineUser,em);
                     }
                 }
                 //Register
@@ -34,7 +37,7 @@ public final class MainMenu {
                 }
                 //Search
                 case 3: {
-
+                    AboutArticle.showAllOfArticles(em);
                 }
             }
         }

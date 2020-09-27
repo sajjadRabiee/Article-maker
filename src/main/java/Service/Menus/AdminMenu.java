@@ -2,10 +2,13 @@ package Service.Menus;
 
 
 import Service.Input.InputArea;
+import Service.Process.AboutArticle;
 import Service.entities.User;
 
+import javax.persistence.EntityManager;
+
 public final class AdminMenu {
-    public static void ShowAdminMenu(User onlineUser){
+    public static void ShowAdminMenu(User onlineUser, EntityManager em){
         outter:
         while (true) {
             System.out.println("----------------------- Admin -----------------------\n" +
@@ -28,9 +31,12 @@ public final class AdminMenu {
                 }
                 //Show
                 case 1: {
+                    AboutArticle.showAllOfArticles(em);
                 }
                 //Edit
                 case 2: {
+                    AboutArticle.showArticleOfOnlineUser(onlineUser);
+                    break outter;
                 }
                 //Add
                 case 3: {
