@@ -1,13 +1,14 @@
 package Repositories;
 
 import Service.entities.EntityInterface;
-import Service.entities.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Query;
 import java.util.List;
+import java.util.Optional;
+
 @NamedQueries(
         {
                 @NamedQuery(
@@ -43,26 +44,26 @@ public class  DAOImpl<Obj extends EntityInterface> implements DAO<Obj> {
     }
 
     @Override
-    public Obj selectById(long id) {
+    public Optional<Obj> selectById(long id) {
         try{
             Obj obj = em.find(objClass ,id);
-            return obj;
+            return Optional.of(obj);
         }catch(Exception e) {
-            return null;
+            return Optional.empty();
         }
     }
 
     @Override
-    public Obj selectByName(String str) {
+    public Optional<Obj> selectByName(String str) {
         try{
             Query query = em.createNamedQuery("find");
             query.setParameter("tableName", tableName);
             query.setParameter("fieldName", fieldName);
             query.setParameter("fieldValue", str);
             Obj obj = (Obj) query.getSingleResult();
-            return obj;
+            return Optional.of(obj);
         }catch (Exception e){
-            return null;
+            return Optional.empty();
         }
     }
 
