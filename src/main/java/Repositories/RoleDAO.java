@@ -6,8 +6,8 @@ import javax.persistence.EntityManager;
 
 public class RoleDAO extends DAOImpl<Role> {
 
-    public RoleDAO(EntityManager em, Class<Role> roleClass) {
-        super(em, roleClass);
+    public RoleDAO(EntityManager em) {
+        super(em, Role.class);
         setTableName("role");
         setFieldName("title");
     }
