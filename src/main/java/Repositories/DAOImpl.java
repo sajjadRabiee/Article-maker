@@ -94,7 +94,7 @@ public class  DAOImpl<Obj extends EntityInterface> implements DAO<Obj> {
             em.getTransaction().begin();
             Query query = em.createNamedQuery("delete");
             query.setParameter("tableName", tableName);
-            query.setParameter("fieldName", id);
+            query.setParameter("fieldName", "id");
             query.setParameter("fieldValue", id);
             em.getTransaction().commit();
             return true;
