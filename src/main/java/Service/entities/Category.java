@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "category")
-public class Category {
+public class Category implements EntityInterface{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false , nullable = false)

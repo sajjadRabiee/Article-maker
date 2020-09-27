@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "user_table")
-public class User {
+public class User implements EntityInterface {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false , nullable = false)
