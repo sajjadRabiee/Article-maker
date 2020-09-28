@@ -1,30 +1,10 @@
 package Repositories;
 
 import Service.entities.EntityInterface;
-
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Query;
 import java.util.List;
-import java.util.Optional;
 
-@NamedQueries(
-        {
-                @NamedQuery(
-                        name = "find",
-                        query = "select object(e) from :tableName e where e.:fieldName = :fieldValue")
-                ,
-                @NamedQuery(
-                        name = "selectAll",
-                        query = "select * from :tableName")
-                ,
-                @NamedQuery(
-                        name = "delete" ,
-                        query = "delete object(e) from :tableName e where e.:fieldName = :fieldValue"
-                )
-        }
-)
 public class  DAOImpl<Obj extends EntityInterface> implements DAO<Obj> {
     protected EntityManager em;
     private final Class<Obj> objClass;
@@ -56,11 +36,7 @@ public class  DAOImpl<Obj extends EntityInterface> implements DAO<Obj> {
     @Override
     public Obj selectByName(String str) {
         try{
-            //Query query = em.createNamedQuery("find");
             Query query = em.createNativeQuery("select * from "+tableName+" e where e."+fieldName+" = \""+str+"\"");
-            //query.setParameter("tableName", tableName);
-            //query.setParameter("fieldName", fieldName);
-            //query.setParameter("fieldValue", str);
             Obj obj = (Obj) query.getSingleResult();
             return obj;
         }catch (Exception e){
@@ -94,10 +70,7 @@ public class  DAOImpl<Obj extends EntityInterface> implements DAO<Obj> {
         Long id = object.getId();
         try {
             em.getTransaction().begin();
-            Query query = em.createNamedQuery("delete");
-            query.setParameter("tableName", tableName);
-            query.setParameter("fieldName", "id");
-            query.setParameter("fieldValue", id);
+            Query query = em.createNativeQuery("delete * from"+tableName+" e where e."+fieldName+" = \""+id+"\"");
             em.getTransaction().commit();
             return true;
         } catch (Exception e) {
