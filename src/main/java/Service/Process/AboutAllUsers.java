@@ -23,7 +23,7 @@ public class AboutAllUsers {
                     continue;
                 }
             }else{
-                User currentUser = userDAO.selectByName(username).get();
+                User currentUser = userDAO.selectByName(username);
                 System.out.println("current Role for user " + currentUser.getUsername() + " is " + currentUser.getRole());
                 System.out.println("Do you want to change it ?");
                 if (InputArea.getBool()){

@@ -15,7 +15,7 @@ public final class Login {
         while (true) {
             System.out.print("please enter username : ");
             username = InputArea.getUsername();
-            if (userDAO.selectByName(username).equals(Optional.empty())) {
+            if (userDAO.selectByName(username) instanceof User) {
                 System.out.println("This user not found please check username and try again");
                 continue;
             } else {
@@ -25,8 +25,8 @@ public final class Login {
         while (true) {
             System.out.print("please enter your password : ");
             String password = InputArea.getPassword();
-            if (userDAO.selectByName(username).get().getPassword().equals(password)) {
-                return userDAO.selectByName(username).get();
+            if (userDAO.selectByName(username).getPassword().equals(password)) {
+                return userDAO.selectByName(username);
             } else {
                 System.out.println("password is not corrected");
                 continue;

@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 
 public class AboutOnlineUser {
     public static void showUserInformation(User onlineUser){
-        System.out.println("----- "+ onlineUser.getRole() +" -----");
+        System.out.println("----- "+ onlineUser.getRole().getTitle() +" -----");
         System.out.println("Your username : " + onlineUser.getUsername());
         System.out.println("Your National Code : " + onlineUser.getNationalCode());
         System.out.println("Your Birthday : " + onlineUser.getBirthday());

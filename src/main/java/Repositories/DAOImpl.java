@@ -13,15 +13,15 @@ import java.util.Optional;
         {
                 @NamedQuery(
                         name = "find",
-                        query = "select from :tableName e where e.:fieldName = :fieldValue")
+                        query = "select object(e) from :tableName e where e.:fieldName = :fieldValue")
                 ,
                 @NamedQuery(
                         name = "selectAll",
-                        query = "select from :tableName")
+                        query = "select * from :tableName")
                 ,
                 @NamedQuery(
                         name = "delete" ,
-                        query = "delete from :tableName e where e.:fieldName = :fieldValue"
+                        query = "delete object(e) from :tableName e where e.:fieldName = :fieldValue"
                 )
         }
 )
@@ -44,33 +44,34 @@ public class  DAOImpl<Obj extends EntityInterface> implements DAO<Obj> {
     }
 
     @Override
-    public Optional<Obj> selectById(long id) {
+    public Obj selectById(long id) {
         try{
             Obj obj = em.find(objClass ,id);
-            return Optional.of(obj);
+            return obj;
         }catch(Exception e) {
-            return Optional.empty();
+            return null;
         }
     }
 
     @Override
-    public Optional<Obj> selectByName(String str) {
+    public Obj selectByName(String str) {
         try{
-            Query query = em.createNamedQuery("find");
-            query.setParameter("tableName", tableName);
-            query.setParameter("fieldName", fieldName);
-            query.setParameter("fieldValue", str);
+            //Query query = em.createNamedQuery("find");
+            Query query = em.createNativeQuery("select * from "+tableName+" e where e."+fieldName+" = \""+str+"\"");
+            //query.setParameter("tableName", tableName);
+            //query.setParameter("fieldName", fieldName);
+            //query.setParameter("fieldValue", str);
             Obj obj = (Obj) query.getSingleResult();
-            return Optional.of(obj);
+            return obj;
         }catch (Exception e){
-            return Optional.empty();
+            return null;
         }
     }
 
     @Override
     public List<Obj> selectAll() {
-        Query query = em.createNamedQuery("selectAll");
-        query.setParameter("tableName", tableName);
+        Query query = em.createNativeQuery("select * from "+tableName+"");
+        //query.setParameter("tableName", tableName);
         List<Obj> objects = query.getResultList();
         return objects;
     }
