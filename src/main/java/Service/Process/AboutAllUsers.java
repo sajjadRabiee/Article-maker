@@ -13,7 +13,7 @@ public class AboutAllUsers {
         System.out.println("please enter username of user that you want edit role of him : ");
         while(true) {
             String username = InputArea.getUsername();
-            if (userDAO.selectByName(username).equals(Optional.empty())) {
+            if (!userDAO.selectByName(username).isPresent()) {
                 System.out.println("This username is not found\n" +
                         "do you want to show all users :");
                 if (InputArea.getBool()) {
@@ -40,7 +40,7 @@ public class AboutAllUsers {
         }
     }
 
-    private static void showAllUsers(EntityManager em){
+    protected static void showAllUsers(EntityManager em){
         UserDAO userDAO = new UserDAO(em);
         for(User user : userDAO.selectAll()){
             System.out.println("-----------------------------------------------------------");

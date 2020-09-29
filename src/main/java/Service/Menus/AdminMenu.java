@@ -43,8 +43,7 @@ public final class AdminMenu {
                     break inner;
                 }
                 case 3: {
-                    //dar dast sakht
-                    System.out.println("dar dast sakht");
+                    AboutArticle.publishArticleOfOnlineUser(em);
                     break inner;
                 }
                 case 4:{

@@ -1,6 +1,7 @@
 package Service.Process;
 
 import Repositories.ArticleDAO;
+import Repositories.UserDAO;
 import Service.Input.InputArea;
 import Service.entities.Article;
 import Service.entities.Category;
@@ -38,38 +39,39 @@ public class AboutArticle {
         System.out.println("-----------------------------------------------------------");
     }
 
-    public static void showArticleBrief(Article article){
+    public static void showArticleBrief(Article article) {
         System.out.println("-----------------------------------------------------------");
-        System.out.println("title : " + article.getTitle());
+        System.out.println("Title : " + article.getTitle());
         System.out.println("Category : " + article.getCategory());
-        System.out.println("brief : " + article.getBrief());
+        System.out.println("Brief : " + article.getBrief());
+        System.out.println("Writer : " + article.getUserOfArticle().getUsername());
         System.out.println("-----------------------------------------------------------");
     }
 
-    public static void showAllOfArticles(EntityManager em){
+    public static void showAllOfArticles(EntityManager em) {
         ArticleDAO articleDAO = new ArticleDAO(em);
-        for(Article a : articleDAO.selectAll()){
+        for (Article a : articleDAO.selectAll()) {
             showArticleBrief(a);
         }
     }
 
-    public static void editArticleOfOnlineUser(User onlineUser , EntityManager em) {
+    public static void editArticleOfOnlineUser(User onlineUser, EntityManager em) {
         ArticleDAO articleDAO = new ArticleDAO(em);
         System.out.println("please enter name of your article");
         String articleName = InputArea.getName();
-        for(Article a : onlineUser.getArticles()){
-            if(a.getTitle().equals(articleName)){
+        for (Article a : onlineUser.getArticles()) {
+            if (a.getTitle().equals(articleName)) {
                 Article onlineArticle = (Article) articleDAO.selectByName(articleName).get();
                 System.out.print("\n----- What do you want to edit -----\n" +
                         "1. title \n" +
                         "2. brief \n" +
                         "3. content \n" +
                         "please enter your choice : ");
-                switch (InputArea.getMenuNumber(3)){
-                    case 1 : {
+                switch (InputArea.getMenuNumber(3)) {
+                    case 1: {
                         System.out.println("current title : \n" + onlineArticle.getTitle());
                         System.out.print("please type your new content : ");
-                        while(true) {
+                        while (true) {
                             String articleTitle = InputArea.getName();
                             if (articleDAO.selectByName(articleName).equals(Optional.empty())) {
                                 onlineArticle.setTitle(articleTitle);
@@ -81,14 +83,14 @@ public class AboutArticle {
                         }
                         break;
                     }
-                    case 2 : {
+                    case 2: {
                         System.out.println("current brief : \n" + onlineArticle.getBrief());
                         System.out.print("please type your new content : ");
                         String articleBrief = InputArea.getText();
                         onlineArticle.setBrief(articleBrief);
                         break;
                     }
-                    case 3 : {
+                    case 3: {
                         System.out.println("current content : \n" + onlineArticle.getContent());
                         System.out.print("please type your new content : ");
                         String articleContent = InputArea.getText();
@@ -97,18 +99,18 @@ public class AboutArticle {
                     }
                 }
                 articleDAO.update(onlineArticle);
-            }else{
+            } else {
                 System.out.println("there is not any article by this name that for you");
             }
         }
     }
 
-    public static void addArticleOfOnlineUser(User onlineUser, EntityManager em){
+    public static void addArticleOfOnlineUser(User onlineUser, EntityManager em) {
         ArticleDAO articleDAO = new ArticleDAO(em);
         Article onlineArticle = new Article();
         onlineArticle.setUserOfArticle(onlineUser);
         System.out.print("please type your Article title : ");
-        while(true) {
+        while (true) {
             String ArticleTitle = InputArea.getName();
             if (articleDAO.selectByName(ArticleTitle).equals(Optional.empty())) {
                 onlineArticle.setTitle(ArticleTitle);
@@ -142,5 +144,53 @@ public class AboutArticle {
         articleDAO.add(onlineArticle);
     }
 
-    //public static void
+    public static void publishArticleOfOnlineUser(EntityManager em) {
+        UserDAO userDAO = new UserDAO(em);
+        ArticleDAO articleDAO = new ArticleDAO(em);
+        while (true) {
+            System.out.println("please enter name of user that you want publish her/him article : ");
+            String nameOfUser = InputArea.getUsername();
+            Optional<User> oUser = userDAO.selectByName(nameOfUser);
+            if (!oUser.isPresent()) {
+                System.out.println("This username is not found\n" +
+                        "do you want to show all users :");
+                if (InputArea.getBool()) {
+                    AboutAllUsers.showAllUsers(em);
+                    continue;
+                } else {
+                    continue;
+                }
+            } else {
+                User user = oUser.get();
+                showArticleOfOnlineUser(user);
+                while (true) {
+                    System.out.println("please enter name of article you want edit : ");
+                    String nameOfArticle = InputArea.getName();
+                    Optional<Article> oArticle = articleDAO.selectByName(nameOfArticle);
+                    if (oArticle.isPresent()) {
+                        Article article = oArticle.get();
+                        showArticleComplete(article);
+                        System.out.println("do you want edit article " + article.getTitle() + " for user " + article.getUserOfArticle().getUsername() +"");
+                        if (InputArea.getBool()) {
+                            article.setPublished(true);
+                            articleDAO.update(article);
+                            userDAO.update(article.getUserOfArticle());
+                            break;
+                        } else {
+                            continue;
+                        }
+                    } else {
+                        System.out.println("This article is not found\n" +
+                                "do you want to show all article :");
+                        if (InputArea.getBool()) {
+                            showAllOfArticles(em);
+                            continue;
+                        } else {
+                            continue;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
