@@ -3,9 +3,7 @@ package Service.Menus;
 
 import Repositories.UserDAO;
 import Service.Input.InputArea;
-import Service.Process.AboutAllUsers;
-import Service.Process.AboutArticle;
-import Service.Process.AboutOnlineUser;
+import Service.Process.*;
 import Service.entities.User;
 
 import javax.persistence.EntityManager;
@@ -23,7 +21,7 @@ public final class AdminMenu {
                     "4.Edit my article\n" +
                     "5.Edit role of users\n" +
                     "6.Add new Category\n" +
-                    "7.Add new Tag" +
+                    "7.Add new Tag\n" +
                     "8.Add new article\n" +
                     "9.Show my information\n" +
                     "10.Edit my password\n" +
@@ -56,13 +54,11 @@ public final class AdminMenu {
                     break inner;
                 }
                 case 6:{
-                    //dar dast sakht
-                    System.out.println("dar dast sakht");
+                    AboutCategory.addCategory(em);
                     break inner;
                 }
                 case 7:{
-                    //dar dast sakht
-                    System.out.println("dar dast sakht");
+                    AboutTag.addTag(em);
                     break inner;
                 }
                 case 8:{

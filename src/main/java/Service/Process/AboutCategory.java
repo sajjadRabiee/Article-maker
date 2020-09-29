@@ -36,4 +36,25 @@ public class AboutCategory {
         }
         return (Category) categoryDAO.selectByName(titleCategory).get();
     }
+
+    public static void addCategory(EntityManager em){
+        CategoryDAO categoryDAO = new CategoryDAO(em);
+        System.out.println("please Enter name of your category");
+        while(true) {
+            String nameOfCategory = InputArea.getName();
+            Optional<Category> oCategory = categoryDAO.selectByName(nameOfCategory);
+            if (oCategory.isPresent()) {
+                System.out.println("this category is exist please enter another name :");
+                continue;
+            } else {
+                Category category = new Category();
+                category.setTitle(nameOfCategory);
+                System.out.println("please enter your description" );
+                String desOfCategory = InputArea.getText();
+                category.setDescription(desOfCategory);
+                categoryDAO.add(category);
+                break;
+            }
+        }
+    }
 }
