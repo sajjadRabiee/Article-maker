@@ -35,13 +35,13 @@ public final class WriterMenu {
                 //Edit
                 case 2: {
                     AboutArticle.showArticleOfOnlineUser(onlineUser);
-                    AboutArticle.EditArticleOfOnlineUser(onlineUser,em);
+                    AboutArticle.editArticleOfOnlineUser(onlineUser,em);
                     userDAO.update(onlineUser);
                     break inner;
                 }
                 //Add
                 case 3: {
-                    AboutArticle.AddArticleOfOnlineUser(onlineUser,em);
+                    AboutArticle.addArticleOfOnlineUser(onlineUser,em);
                     userDAO.update(onlineUser);
                     break;
                 }

@@ -48,7 +48,7 @@ public final class AdminMenu {
                     break inner;
                 }
                 case 4:{
-                    AboutArticle.EditArticleOfOnlineUser(onlineUser,em);
+                    AboutArticle.editArticleOfOnlineUser(onlineUser,em);
                     userDAO.update(onlineUser);
                     break inner;
                 }
@@ -67,7 +67,7 @@ public final class AdminMenu {
                     break inner;
                 }
                 case 8:{
-                    AboutArticle.AddArticleOfOnlineUser(onlineUser , em);
+                    AboutArticle.addArticleOfOnlineUser(onlineUser , em);
                     userDAO.update(onlineUser);
                     break inner;
                 }

@@ -53,7 +53,7 @@ public class AboutArticle {
         }
     }
 
-    public static void EditArticleOfOnlineUser(User onlineUser , EntityManager em) {
+    public static void editArticleOfOnlineUser(User onlineUser , EntityManager em) {
         ArticleDAO articleDAO = new ArticleDAO(em);
         System.out.println("please enter name of your article");
         String articleName = InputArea.getName();
@@ -103,7 +103,7 @@ public class AboutArticle {
         }
     }
 
-    public static void AddArticleOfOnlineUser(User onlineUser, EntityManager em){
+    public static void addArticleOfOnlineUser(User onlineUser, EntityManager em){
         ArticleDAO articleDAO = new ArticleDAO(em);
         Article onlineArticle = new Article();
         onlineArticle.setUserOfArticle(onlineUser);
@@ -141,4 +141,6 @@ public class AboutArticle {
         onlineArticle.setPublished(false);
         articleDAO.add(onlineArticle);
     }
+
+    //public static void
 }
