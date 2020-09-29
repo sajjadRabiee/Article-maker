@@ -18,13 +18,12 @@ public class Register {
         while (true) {
             System.out.print("please enter username : ");
             String username = InputArea.getUsername();
-            if (!(userDAO.selectByName(username).equals(Optional.empty()))) {
+            if (userDAO.selectByName(username).isPresent()) {
                 System.out.println("this is already exist please enter another username");
                 continue;
             } else {
                 newUser.setUsername(username);
                 break;
-
             }
         }
 

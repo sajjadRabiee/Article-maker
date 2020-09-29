@@ -5,8 +5,13 @@ import javax.persistence.EntityManager;
 
 public class UserDAO extends DAOImpl<User> {
 
+    @Override
+    protected Class<User> getObjClass() {
+        return User.class;
+    }
+
     public UserDAO(EntityManager em) {
-        super(em, User.class);
+        super(em);
         setTableName("user_table");
         setFieldName("username");
     }

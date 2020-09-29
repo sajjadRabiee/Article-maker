@@ -7,8 +7,13 @@ import javax.persistence.EntityManager;
 public class RoleDAO extends DAOImpl<Role> {
 
     public RoleDAO(EntityManager em) {
-        super(em, Role.class);
+        super(em);
         setTableName("role");
         setFieldName("title");
+    }
+
+    @Override
+    protected Class<Role> getObjClass() {
+        return Role.class;
     }
 }

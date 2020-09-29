@@ -19,7 +19,7 @@ public final class AdminMenu {
                     "0.For go back\n" +
                     "1.Show all Articles\n" +
                     "2.Show my articles\n" +
-                    "3.Publish article of users" +
+                    "3.Publish article of users\n" +
                     "4.Edit my article\n" +
                     "5.Edit role of users\n" +
                     "6.Add new Category\n" +

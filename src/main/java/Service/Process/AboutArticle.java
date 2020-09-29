@@ -59,7 +59,7 @@ public class AboutArticle {
         String articleName = InputArea.getName();
         for(Article a : onlineUser.getArticles()){
             if(a.getTitle().equals(articleName)){
-                Article onlineArticle = articleDAO.selectByName(articleName);
+                Article onlineArticle = (Article) articleDAO.selectByName(articleName).get();
                 System.out.print("\n----- What do you want to edit -----\n" +
                         "1. title \n" +
                         "2. brief \n" +

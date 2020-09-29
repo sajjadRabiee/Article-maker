@@ -11,25 +11,27 @@ public final class Login {
 
     public static User loginProcess(EntityManager em) {
         UserDAO userDAO = new UserDAO(em);
+
         String username;
-        while (true) {
+        outter : while (true) {
             System.out.print("please enter username : ");
             username = InputArea.getUsername();
-            if (userDAO.selectByName(username) instanceof User) {
+            Optional<User> oUser = userDAO.selectByName(username);
+            if (oUser.isPresent()) {
+                User user = oUser.get();
+                inner : while (true) {
+                    System.out.print("please enter your password : ");
+                    String password = InputArea.getPassword();
+                    if (password.equals(user.getPassword())) {
+                        return (User) userDAO.selectByName(username).get();
+                    } else {
+                        System.out.println("password is not corrected");
+                        continue inner;
+                    }
+                }
+            } else {
                 System.out.println("This user not found please check username and try again");
-                continue;
-            } else {
-                break;
-            }
-        }
-        while (true) {
-            System.out.print("please enter your password : ");
-            String password = InputArea.getPassword();
-            if (userDAO.selectByName(username).getPassword().equals(password)) {
-                return userDAO.selectByName(username);
-            } else {
-                System.out.println("password is not corrected");
-                continue;
+                continue outter;
             }
         }
     }

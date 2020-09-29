@@ -23,8 +23,8 @@ public class AboutAllUsers {
                     continue;
                 }
             }else{
-                User currentUser = userDAO.selectByName(username);
-                System.out.println("current Role for user " + currentUser.getUsername() + " is " + currentUser.getRole());
+                User currentUser = (User) userDAO.selectByName(username).get();
+                System.out.println("current Role for user " + currentUser.getUsername() + " is " + currentUser.getRole().getTitle());
                 System.out.println("Do you want to change it ?");
                 if (InputArea.getBool()){
                     if(currentUser.getRole().equals(StaticRoles.getAdminRole())){
@@ -45,7 +45,7 @@ public class AboutAllUsers {
         for(User user : userDAO.selectAll()){
             System.out.println("-----------------------------------------------------------");
             System.out.println("Username : " + user.getUsername());
-            System.out.println("Role : " + user.getRole());
+            System.out.println("Role : " + user.getRole().getTitle());
             System.out.println("-----------------------------------------------------------");
 
         }

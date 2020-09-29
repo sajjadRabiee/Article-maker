@@ -25,9 +25,10 @@ public final class MainMenu {
                 //Login
                 case 1: {
                     onlineUser = Login.loginProcess(em);
-                    if (onlineUser.getRole().getTitle() == "admin"){
+                    System.out.println(onlineUser.getRole().getTitle());
+                    if (onlineUser.getRole().getTitle().equals("Admin")){
                         AdminMenu.ShowAdminMenu(onlineUser,em);
-                    }else if(onlineUser.getRole().getTitle() == "writer"){
+                    }else if(onlineUser.getRole().getTitle().equals("Writer")){
                         WriterMenu.showWriterMenu(onlineUser,em);
                     }
                     break;

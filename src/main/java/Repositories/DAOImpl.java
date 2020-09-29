@@ -2,12 +2,16 @@ package Repositories;
 
 import Service.entities.EntityInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.xml.transform.Result;
 import java.util.List;
+import java.util.Optional;
 
-public class  DAOImpl<Obj extends EntityInterface> implements DAO<Obj> {
+public abstract class  DAOImpl<Obj extends EntityInterface> implements DAO<Obj> {
     protected EntityManager em;
-    private final Class<Obj> objClass;
+    protected abstract Class<Obj> getObjClass();
     protected String tableName , fieldName;
 
     public void setFieldName(String fieldName) {
@@ -18,36 +22,36 @@ public class  DAOImpl<Obj extends EntityInterface> implements DAO<Obj> {
         this.tableName = tableName;
     }
 
-    public DAOImpl(EntityManager em, Class<Obj> objClass){
+    public DAOImpl(EntityManager em){
         this.em = em;
-        this.objClass = objClass;
     }
 
     @Override
-    public Obj selectById(long id) {
+    public Optional<Obj> selectById(long id) {
+        Obj obj;
         try{
-            Obj obj = em.find(objClass ,id);
-            return obj;
-        }catch(Exception e) {
-            return null;
+            obj = em.find(getObjClass() ,id);
+        }catch(NoResultException e) {
+            obj = null;
         }
+        return obj != null ? Optional.of(obj) : Optional.ofNullable(null);
     }
 
     @Override
-    public Obj selectByName(String str) {
+    public Optional<Obj> selectByName(String str) {
+        Obj obj;
         try{
-            Query query = em.createNativeQuery("select * from "+tableName+" e where e."+fieldName+" = \""+str+"\"");
-            Obj obj = (Obj) query.getSingleResult();
-            return obj;
-        }catch (Exception e){
-            return null;
+            TypedQuery<Obj> query = em.createQuery("select e from "+getObjClass().getName()+" e where e."+fieldName+" = \'"+str+"\'",getObjClass());
+            obj = query.getSingleResult();
+        }catch (NoResultException e){
+            obj = null;
         }
+        return obj != null ? Optional.of(obj) : Optional.ofNullable(null);
     }
 
     @Override
     public List<Obj> selectAll() {
-        Query query = em.createNativeQuery("select * from "+tableName+"");
-        //query.setParameter("tableName", tableName);
+        TypedQuery<Obj> query = em.createQuery("select e from "+getObjClass().getName()+" e",getObjClass());
         List<Obj> objects = query.getResultList();
         return objects;
     }
@@ -70,7 +74,7 @@ public class  DAOImpl<Obj extends EntityInterface> implements DAO<Obj> {
         Long id = object.getId();
         try {
             em.getTransaction().begin();
-            Query query = em.createNativeQuery("delete * from"+tableName+" e where e."+fieldName+" = \""+id+"\"");
+            TypedQuery<Obj> query = em.createQuery("delete e from"+getObjClass().getName()+" e where e."+fieldName+" = \""+id+"\"", getObjClass() );
             em.getTransaction().commit();
             return true;
         } catch (Exception e) {

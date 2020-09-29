@@ -34,6 +34,6 @@ public class AboutCategory {
                 break;
             }
         }
-        return categoryDAO.selectByName(titleCategory);
+        return (Category) categoryDAO.selectByName(titleCategory).get();
     }
 }
