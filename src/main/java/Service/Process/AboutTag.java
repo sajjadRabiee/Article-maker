@@ -37,7 +37,6 @@ public class AboutTag {
     }
 
     public static Tag chooseTag(EntityManager em){
-        showAllTag(em);
         TagDAO tagDAO = new TagDAO(em);
         String titleTag;
         System.out.println("please enter title of Tag you want : ");

@@ -5,13 +5,17 @@ import Repositories.UserDAO;
 import Service.Input.InputArea;
 import Service.entities.Article;
 import Service.entities.Category;
+import Service.entities.Tag;
 import Service.entities.User;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 public class AboutArticle {
@@ -24,10 +28,13 @@ public class AboutArticle {
     public static void showArticleComplete(Article article) {
         System.out.println("-----------------------------------------------------------");
         System.out.println("title : " + article.getTitle());
-        System.out.println("Category : " + article.getCategory());
+        System.out.println("Category : " + article.getCategory().getTitle());
         System.out.println("brief : " + article.getBrief());
         System.out.println("content : \n" + article.getContent());
-        System.out.println("tags : " + article.getTags());
+        System.out.println("tags : ");
+        for(Tag tag : article.getTags()){
+            System.out.println(tag.getTitle());
+        }
         System.out.println("Date of Create : " + article.getCreateDate());
         String status = null;
         if (article.isPublished()) {
@@ -42,7 +49,7 @@ public class AboutArticle {
     public static void showArticleBrief(Article article) {
         System.out.println("-----------------------------------------------------------");
         System.out.println("Title : " + article.getTitle());
-        System.out.println("Category : " + article.getCategory());
+        System.out.println("Category : " + article.getCategory().getTitle());
         System.out.println("Brief : " + article.getBrief());
         System.out.println("Writer : " + article.getUserOfArticle().getUsername());
         System.out.println("-----------------------------------------------------------");
@@ -125,6 +132,22 @@ public class AboutArticle {
         AboutCategory.showAllCategory(em);
         Category category = AboutCategory.chooseCategory(em);
         onlineArticle.setCategory(category);
+
+        System.out.println("----- Tags you can choose -----");
+        AboutTag.showAllTag(em);
+        List<Tag> tags = new ArrayList<>();
+        tags.add(AboutTag.chooseTag(em));
+        while (true){
+            System.out.println("Do you want add more tag");
+            if(InputArea.getBool()){
+                tags.add(AboutTag.chooseTag(em));
+                continue;
+            }else{
+                break;
+            }
+        }
+
+        onlineArticle.setTags(tags);
 
         System.out.println("please type your brief : ");
         String brief = InputArea.getText();

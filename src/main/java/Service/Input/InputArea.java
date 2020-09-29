@@ -61,11 +61,12 @@ public final class InputArea {
     public static String getText() {
         System.out.println("please when you want stop typing type \"/end\"");
         String text = "";
-        while (sc.nextLine().equals("/end")){
-            String newText = sc.nextLine();
-            text = text + newText;
-        }
-        return text;
+        String line = "";
+        do {
+            text += line + "\n";
+            line = sc.nextLine();
+        } while (!line.equalsIgnoreCase("/end"));
+        return text.trim();
     }
 
     public static Boolean getBool(){
