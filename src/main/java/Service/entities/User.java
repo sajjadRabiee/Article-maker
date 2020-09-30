@@ -30,8 +30,8 @@ public class User implements EntityInterface {
         return articles;
     }
 
-    public void setArticles(List<Article> articles) {
-        this.articles = articles;
+    public void setArticles(Article article) {
+        this.articles.add(article);
     }
 
     public long getId() {

@@ -36,9 +36,11 @@ public class AboutArticle {
             System.out.println(tag.getTitle());
         }
         System.out.println("Date of Create : " + article.getCreateDate());
+        System.out.println("Last update : " + article.getLastUpdateDate());
         String status = null;
         if (article.isPublished()) {
             status = "Is Published";
+            System.out.println("Date of publish : " + article.getPublishDate());
         } else {
             status = "Unpublished";
         }
@@ -68,7 +70,7 @@ public class AboutArticle {
         String articleName = InputArea.getName();
         for (Article a : onlineUser.getArticles()) {
             if (a.getTitle().equals(articleName)) {
-                Article onlineArticle = (Article) articleDAO.selectByName(articleName).get();
+                Article onlineArticle = articleDAO.selectByName(articleName).get();
                 System.out.print("\n----- What do you want to edit -----\n" +
                         "1. title \n" +
                         "2. brief \n" +
@@ -80,7 +82,7 @@ public class AboutArticle {
                         System.out.print("please type your new content : ");
                         while (true) {
                             String articleTitle = InputArea.getName();
-                            if (articleDAO.selectByName(articleName).equals(Optional.empty())) {
+                            if (!articleDAO.selectByName(articleTitle).isPresent()) {
                                 onlineArticle.setTitle(articleTitle);
                                 break;
                             } else {
@@ -162,8 +164,10 @@ public class AboutArticle {
         LocalDate localDate = LocalDate.parse(dateFormat.format(currentDate));
         java.sql.Date date = java.sql.Date.valueOf(localDate);
         onlineArticle.setCreateDate(date);
+        onlineArticle.setLastUpdateDate(date);
         onlineArticle.setPublishDate(date);
         onlineArticle.setPublished(false);
+        onlineUser.setArticles(onlineArticle);
         articleDAO.add(onlineArticle);
     }
 
@@ -187,15 +191,24 @@ public class AboutArticle {
                 User user = oUser.get();
                 showArticleOfOnlineUser(user);
                 while (true) {
-                    System.out.println("please enter name of article you want edit : ");
+                    System.out.println("please enter name of article you want publish : ");
                     String nameOfArticle = InputArea.getName();
                     Optional<Article> oArticle = articleDAO.selectByName(nameOfArticle);
                     if (oArticle.isPresent()) {
                         Article article = oArticle.get();
                         showArticleComplete(article);
-                        System.out.println("do you want edit article " + article.getTitle() + " for user " + article.getUserOfArticle().getUsername() +"");
+                        System.out.println("do you want change situation of publishing article " + article.getTitle() + " for user " + article.getUserOfArticle().getUsername() +"");
                         if (InputArea.getBool()) {
-                            article.setPublished(true);
+                            if(article.isPublished()){
+                                article.setPublished(false);
+                            }else{
+                                article.setPublished(true);
+                                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                Date currentDate = new Date();
+                                LocalDate localDate = LocalDate.parse(dateFormat.format(currentDate));
+                                java.sql.Date date = java.sql.Date.valueOf(localDate);
+                                article.setCreateDate(date);
+                            }
                             articleDAO.update(article);
                             userDAO.update(article.getUserOfArticle());
                             break;
@@ -213,6 +226,7 @@ public class AboutArticle {
                         }
                     }
                 }
+                break;
             }
         }
     }
