@@ -1,6 +1,6 @@
 package Service.Process;
 
-import Repositories.CategoryDAO;
+import Repositories.EntityDAO.CategoryDAO;
 import Service.Input.InputArea;
 import Service.entities.Category;
 
@@ -8,8 +8,8 @@ import javax.persistence.EntityManager;
 import java.util.Optional;
 
 public class AboutCategory {
-    public static void showAllCategory(EntityManager em){
-        CategoryDAO categoryDAO = new CategoryDAO(em);
+    public static void showAllCategory(){
+        CategoryDAO categoryDAO = new CategoryDAO();
         int i = 0;
         for(Category cate : categoryDAO.selectAll()){
             i++;
@@ -20,8 +20,8 @@ public class AboutCategory {
         }
     }
 
-    public static Category chooseCategory(EntityManager em){
-        CategoryDAO categoryDAO = new CategoryDAO(em);
+    public static Category chooseCategory(){
+        CategoryDAO categoryDAO = new CategoryDAO();
         String titleCategory;
         System.out.println("please enter title of category you want : ");
         while (true) {
@@ -37,8 +37,8 @@ public class AboutCategory {
         return (Category) categoryDAO.selectByName(titleCategory).get();
     }
 
-    public static void addCategory(EntityManager em){
-        CategoryDAO categoryDAO = new CategoryDAO(em);
+    public static void addCategory(){
+        CategoryDAO categoryDAO = new CategoryDAO();
         System.out.println("please Enter name of your category");
         while(true) {
             String nameOfCategory = InputArea.getName();

@@ -1,11 +1,9 @@
-package Repositories;
+package Repositories.EntityDAO;
 
 import Service.entities.EntityInterface;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.xml.transform.Result;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -26,8 +24,7 @@ public abstract class  DAOImpl<Obj extends EntityInterface> implements DAO<Obj> 
         this.tableName = tableName;
     }
 
-    public DAOImpl(EntityManager em){
-        this.em = em;
+    public DAOImpl(){
     }
 
     @Override

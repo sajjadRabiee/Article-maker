@@ -1,4 +1,4 @@
-package Repositories;
+package Repositories.EntityDAO;
 
 import Service.entities.EntityInterface;
 

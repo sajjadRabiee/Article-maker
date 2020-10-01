@@ -1,7 +1,7 @@
 package Service.Process;
 
-import Repositories.ArticleDAO;
-import Repositories.UserDAO;
+import Repositories.EntityDAO.ArticleDAO;
+import Repositories.EntityDAO.UserDAO;
 import Service.Input.InputArea;
 import Service.entities.Article;
 import Service.entities.Category;
@@ -9,7 +9,6 @@ import Service.entities.Tag;
 import Service.entities.User;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -57,15 +56,15 @@ public class AboutArticle {
         System.out.println("-----------------------------------------------------------");
     }
 
-    public static void showAllOfArticles(EntityManager em) {
-        ArticleDAO articleDAO = new ArticleDAO(em);
+    public static void showAllOfArticles() {
+        ArticleDAO articleDAO = new ArticleDAO();
         for (Article a : articleDAO.selectAll()) {
             showArticleBrief(a);
         }
     }
 
-    public static void editArticleOfOnlineUser(User onlineUser, EntityManager em) {
-        ArticleDAO articleDAO = new ArticleDAO(em);
+    public static void editArticleOfOnlineUser(User onlineUser) {
+        ArticleDAO articleDAO = new ArticleDAO();
         System.out.println("please enter name of your article");
         String articleName = InputArea.getName();
         for (Article a : onlineUser.getArticles()) {
@@ -114,8 +113,8 @@ public class AboutArticle {
         }
     }
 
-    public static void addArticleOfOnlineUser(User onlineUser, EntityManager em) {
-        ArticleDAO articleDAO = new ArticleDAO(em);
+    public static void addArticleOfOnlineUser(User onlineUser) {
+        ArticleDAO articleDAO = new ArticleDAO();
         Article onlineArticle = new Article();
         onlineArticle.setUserOfArticle(onlineUser);
         System.out.print("please type your Article title : ");
@@ -131,18 +130,18 @@ public class AboutArticle {
         }
 
         System.out.println("----- Categories you can choose -----");
-        AboutCategory.showAllCategory(em);
-        Category category = AboutCategory.chooseCategory(em);
+        AboutCategory.showAllCategory();
+        Category category = AboutCategory.chooseCategory();
         onlineArticle.setCategory(category);
 
         System.out.println("----- Tags you can choose -----");
-        AboutTag.showAllTag(em);
+        AboutTag.showAllTag();
         List<Tag> tags = new ArrayList<>();
-        tags.add(AboutTag.chooseTag(em));
+        tags.add(AboutTag.chooseTag());
         while (true){
             System.out.println("Do you want add more tag");
             if(InputArea.getBool()){
-                tags.add(AboutTag.chooseTag(em));
+                tags.add(AboutTag.chooseTag());
                 continue;
             }else{
                 break;
@@ -171,9 +170,9 @@ public class AboutArticle {
         articleDAO.add(onlineArticle);
     }
 
-    public static void publishArticleOfOnlineUser(EntityManager em) {
-        UserDAO userDAO = new UserDAO(em);
-        ArticleDAO articleDAO = new ArticleDAO(em);
+    public static void publishArticleOfOnlineUser() {
+        UserDAO userDAO = new UserDAO();
+        ArticleDAO articleDAO = new ArticleDAO();
         while (true) {
             System.out.println("please enter name of user that you want publish her/him article : ");
             String nameOfUser = InputArea.getUsername();
@@ -182,7 +181,7 @@ public class AboutArticle {
                 System.out.println("This username is not found\n" +
                         "do you want to show all users :");
                 if (InputArea.getBool()) {
-                    AboutAllUsers.showAllUsers(em);
+                    AboutAllUsers.showAllUsers();
                     continue;
                 } else {
                     continue;
@@ -219,7 +218,7 @@ public class AboutArticle {
                         System.out.println("This article is not found\n" +
                                 "do you want to show all article :");
                         if (InputArea.getBool()) {
-                            showAllOfArticles(em);
+                            showAllOfArticles();
                             continue;
                         } else {
                             continue;

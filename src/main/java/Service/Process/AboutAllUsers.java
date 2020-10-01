@@ -1,15 +1,14 @@
 package Service.Process;
 
-import Repositories.UserDAO;
+import Repositories.EntityDAO.UserDAO;
 import Service.Input.InputArea;
 import Service.entities.User;
 
 import javax.persistence.EntityManager;
-import java.util.Optional;
 
 public class AboutAllUsers {
-    public static void editRoleOfUsers(EntityManager em){
-        UserDAO userDAO = new UserDAO(em);
+    public static void editRoleOfUsers(){
+        UserDAO userDAO = new UserDAO();
         System.out.println("please enter username of user that you want edit role of him : ");
         while(true) {
             String username = InputArea.getUsername();
@@ -17,7 +16,7 @@ public class AboutAllUsers {
                 System.out.println("This username is not found\n" +
                         "do you want to show all users :");
                 if (InputArea.getBool()) {
-                    showAllUsers(em);
+                    showAllUsers();
                     continue;
                 } else {
                     continue;
@@ -40,8 +39,8 @@ public class AboutAllUsers {
         }
     }
 
-    protected static void showAllUsers(EntityManager em){
-        UserDAO userDAO = new UserDAO(em);
+    protected static void showAllUsers(){
+        UserDAO userDAO = new UserDAO();
         for(User user : userDAO.selectAll()){
             System.out.println("-----------------------------------------------------------");
             System.out.println("Username : " + user.getUsername());

@@ -1,6 +1,7 @@
 package Service.Process;
 
-import Repositories.UserDAO;
+import Repositories.EntityDAO.UserDAO;
+import Repositories.EntityManagerFactories.emf1;
 import Service.Input.InputArea;
 import Service.entities.User;
 
@@ -9,8 +10,9 @@ import java.util.Optional;
 
 public final class Login {
 
-    public static User loginProcess(EntityManager em) {
-        UserDAO userDAO = new UserDAO(em);
+    public static User loginProcess() {
+        EntityManager em = emf1.getEntityManager();
+        UserDAO userDAO = new UserDAO();
 
         String username;
         outter : while (true) {

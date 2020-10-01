@@ -1,6 +1,7 @@
 package Service.Menus;
 
-import Repositories.UserDAO;
+import Repositories.EntityDAO.UserDAO;
+import Repositories.EntityManagerFactories.emf1;
 import Service.Input.InputArea;
 import Service.Process.AboutArticle;
 import Service.Process.AboutOnlineUser;
@@ -9,8 +10,8 @@ import Service.entities.User;
 import javax.persistence.EntityManager;
 
 public final class WriterMenu {
-    public static void showWriterMenu (User onlineUser , EntityManager em){
-        UserDAO userDAO = new UserDAO(em);
+    public static void showWriterMenu (User onlineUser){
+        UserDAO userDAO = new UserDAO();
         outter:
         while (true) {
             System.out.println("----------------------- Writer -----------------------\n" +
@@ -35,13 +36,13 @@ public final class WriterMenu {
                 //Edit
                 case 2: {
                     AboutArticle.showArticleOfOnlineUser(onlineUser);
-                    AboutArticle.editArticleOfOnlineUser(onlineUser,em);
+                    AboutArticle.editArticleOfOnlineUser(onlineUser);
                     userDAO.update(onlineUser);
                     break inner;
                 }
                 //Add
                 case 3: {
-                    AboutArticle.addArticleOfOnlineUser(onlineUser,em);
+                    AboutArticle.addArticleOfOnlineUser(onlineUser);
                     userDAO.update(onlineUser);
                     break;
                 }
@@ -50,7 +51,7 @@ public final class WriterMenu {
                     break;
                 }
                 case 5:{
-                    AboutOnlineUser.editPassword(onlineUser,em);
+                    AboutOnlineUser.editPassword(onlineUser);
                     userDAO.update(onlineUser);
                     break;
                 }

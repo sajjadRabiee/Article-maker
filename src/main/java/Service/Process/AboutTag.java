@@ -1,7 +1,6 @@
 package Service.Process;
 
-import Repositories.CategoryDAO;
-import Repositories.TagDAO;
+import Repositories.EntityDAO.TagDAO;
 import Service.Input.InputArea;
 import Service.entities.Tag;
 
@@ -9,15 +8,15 @@ import javax.persistence.EntityManager;
 import java.util.Optional;
 
 public class AboutTag {
-    public static void showAllTag(EntityManager em){
-        TagDAO tagDAO = new TagDAO(em);
+    public static void showAllTag(){
+        TagDAO tagDAO = new TagDAO();
         for(Tag tag : tagDAO.selectAll()){
             System.out.println("Title : " + tag.getTitle());
         }
     }
 
-    public static void addTag(EntityManager em){
-        TagDAO tagDAO = new TagDAO(em);
+    public static void addTag(){
+        TagDAO tagDAO = new TagDAO();
         outter : while(true){
             System.out.println("please enter name of your tag :");
             String name = InputArea.getName();
@@ -25,7 +24,7 @@ public class AboutTag {
             if(oTag.isPresent()){
                 System.out.println("your tag is exist do you want see tags that exist");
                 if(InputArea.getBool()){
-                    showAllTag(em);
+                    showAllTag();
                 } continue outter;
             }else{
                 Tag tag = new Tag();
@@ -36,8 +35,8 @@ public class AboutTag {
         }
     }
 
-    public static Tag chooseTag(EntityManager em){
-        TagDAO tagDAO = new TagDAO(em);
+    public static Tag chooseTag(){
+        TagDAO tagDAO = new TagDAO();
         String titleTag;
         System.out.println("please enter title of Tag you want : ");
         while (true) {

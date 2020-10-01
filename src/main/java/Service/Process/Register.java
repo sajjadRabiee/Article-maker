@@ -1,6 +1,6 @@
 package Service.Process;
 
-import Repositories.UserDAO;
+import Repositories.EntityDAO.UserDAO;
 import Service.Input.InputArea;
 import Service.entities.Address;
 import Service.entities.User;
@@ -9,8 +9,8 @@ import javax.persistence.EntityManager;
 import java.sql.Date;
 
 public class Register {
-    public static User registerProcess(EntityManager em) {
-        UserDAO userDAO = new UserDAO(em);
+    public static User registerProcess() {
+        UserDAO userDAO = new UserDAO();
         User newUser = new User();
         newUser.setRole(StaticRoles.getWriterRole());
         System.out.println("Your welcome\n" +

@@ -14,7 +14,7 @@ public class AboutOnlineUser {
         System.out.println("Your Password : " + onlineUser.getPassword());
     }
 
-    public static void editPassword(User onlineUser , EntityManager em){
+    public static void editPassword(User onlineUser){
         System.out.println("Please enter your old password : ");
         while(true) {
             String oldPassword = InputArea.getPassword();
