@@ -24,7 +24,11 @@ public class User implements EntityInterface {
     @JoinColumn(name ="fk_role")
     private Role role;
     @OneToMany(mappedBy = "userOfArticle")
-    private List<Article> articles = new ArrayList<Article>();
+    private List<Article> articles = new ArrayList<>();
+    @Embedded
+    @Column(name = "address")
+    @Basic(fetch = FetchType.LAZY)
+    private Address address;
 
     public List<Article> getArticles() {
         return articles;
@@ -82,5 +86,15 @@ public class User implements EntityInterface {
         this.role = role;
     }
 
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
+    }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }

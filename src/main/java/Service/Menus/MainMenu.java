@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 public final class MainMenu {
     public static User onlineUser = new User();
 
-    public static void showMenu(EntityManager em) {
+    public static void showMenu(EntityManager em1 , EntityManager em2) {
 
         firstPage:
         while (true) {
@@ -24,24 +24,24 @@ public final class MainMenu {
             switch (InputArea.getMenuNumber(3)) {
                 //Login
                 case 1: {
-                    onlineUser = Login.loginProcess(em);
+                    onlineUser = Login.loginProcess(em1);
                     System.out.println(onlineUser.getRole().getTitle());
                     if (onlineUser.getRole().getTitle().equals("Admin")){
-                        AdminMenu.ShowAdminMenu(onlineUser,em);
+                        AdminMenu.ShowAdminMenu(onlineUser,em1);
                     }else if(onlineUser.getRole().getTitle().equals("Writer")){
-                        WriterMenu.showWriterMenu(onlineUser,em);
+                        WriterMenu.showWriterMenu(onlineUser,em1);
                     }
                     break;
                 }
                 //Register
                 case 2: {
-                    onlineUser = Register.registerProcess(em);
-                    WriterMenu.showWriterMenu(onlineUser,em);
+                    onlineUser = Register.registerProcess(em1);
+                    WriterMenu.showWriterMenu(onlineUser,em1);
                     break;
                 }
                 //Search
                 case 3: {
-                    AboutArticle.showAllOfArticles(em);
+                    AboutArticle.showAllOfArticles(em1);
                     break;
                 }
             }

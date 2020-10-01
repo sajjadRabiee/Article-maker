@@ -2,11 +2,11 @@ package Service.Process;
 
 import Repositories.UserDAO;
 import Service.Input.InputArea;
+import Service.entities.Address;
 import Service.entities.User;
 
 import javax.persistence.EntityManager;
 import java.sql.Date;
-import java.util.Optional;
 
 public class Register {
     public static User registerProcess(EntityManager em) {
@@ -31,6 +31,21 @@ public class Register {
         String nationalCode = InputArea.getNationalCode();
         newUser.setNationalCode(nationalCode);
         newUser.setPassword(nationalCode);
+
+        Address address = new Address();
+        System.out.println("please enter your Country");
+        String country = InputArea.getName();
+        address.setCountry(country);
+        System.out.println("please enter your City");
+        String city = InputArea.getName();
+        address.setCity(city);
+        System.out.println("please enter your Street");
+        String street = InputArea.getText();
+        address.setStreet(street);
+        System.out.println("please enter your Number");
+        String number = InputArea.getName();
+        address.setNumber(number);
+        newUser.setAddress(address);
 
         System.out.print("please enter your birthday : ");
         Date birthday = InputArea.getDate();

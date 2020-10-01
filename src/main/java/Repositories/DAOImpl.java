@@ -8,6 +8,10 @@ import javax.persistence.TypedQuery;
 import javax.xml.transform.Result;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public abstract class  DAOImpl<Obj extends EntityInterface> implements DAO<Obj> {
     protected EntityManager em;
@@ -54,6 +58,28 @@ public abstract class  DAOImpl<Obj extends EntityInterface> implements DAO<Obj> 
         TypedQuery<Obj> query = em.createQuery("select e from "+getObjClass().getName()+" e",getObjClass());
         List<Obj> objects = query.getResultList();
         return objects;
+    }
+
+    public List findAll(Predicate<? super Obj> p){
+        TypedQuery<Obj> query = em.createQuery("select e from "+getObjClass().getName()+" e",getObjClass());
+        List<Obj> objects = query.getResultList();
+        return objects.stream().filter(p).collect(Collectors.toList());
+    }
+
+    public <desObj extends EntityInterface> List<EntityInterface> findAll(Function<Obj,desObj> f){
+        TypedQuery<Obj> query = em.createQuery("select e from "+getObjClass().getName()+" e",getObjClass());
+        List<Obj> objects = query.getResultList();
+        Consumer<desObj> consumer = a -> {
+            try {
+                em.getTransaction().begin();
+                em.persist(a);
+                em.getTransaction().commit();
+            } catch (Exception e) {
+                em.getTransaction().rollback();
+            }
+        };
+        objects.stream().map(f).forEach(consumer);
+        return objects.stream().map(f).collect(Collectors.toList());
     }
 
     @Override
