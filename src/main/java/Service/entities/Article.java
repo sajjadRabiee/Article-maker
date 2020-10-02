@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "article_table")
+@Table(name = "article_table" , catalog = "schema1" , schema = "schema1")
 public class Article implements EntityInterface{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

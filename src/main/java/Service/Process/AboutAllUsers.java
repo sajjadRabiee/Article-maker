@@ -53,12 +53,16 @@ public class AboutAllUsers {
     protected static void showAllUsers() {
         UserDAO userDAO = new UserDAO();
         for(User user : userDAO.selectAll()){
-            System.out.println("-----------------------------------------------------------");
-            System.out.println("Username : " + user.getUsername());
-            System.out.println("Role : " + user.getRole().getTitle());
-            System.out.println("-----------------------------------------------------------");
+            showUserInfo(user);
         }
 
+    }
+
+    protected static void showUserInfo(User user){
+        System.out.println("-----------------------------------------------------------");
+        System.out.println("Username : " + user.getUsername());
+        System.out.println("Role : " + user.getRole().getTitle());
+        System.out.println("-----------------------------------------------------------");
     }
 
     public static void castUsers() {
@@ -74,7 +78,10 @@ public class AboutAllUsers {
         };
         userDAO.castAll(function);
         for(UserInfo uI : userInfoDAO.selectAll()){
-            System.out.println();
+            System.out.println(uI.getId());
+            System.out.println(uI.getUsername());
+            System.out.println(uI.getAddress().getCountry());
+            System.out.println(uI.getNationalCode());
         }
     }
 
@@ -84,7 +91,7 @@ public class AboutAllUsers {
             return a.getRole().getTitle().equals("Admin");
         };
         for(User u : userDAO.findAll(predicate)){
-
+            showUserInfo(u);
         }
     }
 }

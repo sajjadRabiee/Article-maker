@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user_table")
+@Table(name = "user_table" , catalog = "schema1" , schema = "schema1")
 public class User implements EntityInterface {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

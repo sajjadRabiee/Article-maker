@@ -3,7 +3,7 @@ package Service.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "role")
+@Table(name = "role" , catalog = "schema1" , schema = "schema1")
 public class Role implements EntityInterface {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
