@@ -1,6 +1,7 @@
 package Service.Menus;
 
 import Service.Input.InputArea;
+import Service.Process.AboutAllUsers;
 import Service.Process.AboutArticle;
 import Service.Process.Login;
 import Service.Process.Register;
@@ -40,6 +41,14 @@ public final class MainMenu {
                 //Search
                 case 3: {
                     AboutArticle.showAllOfArticles();
+                    break;
+                }
+                case 4: {
+                    AboutAllUsers.findUser();
+                    break;
+                }
+                case 5: {
+                    AboutAllUsers.castUsers();
                     break;
                 }
             }
