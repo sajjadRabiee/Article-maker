@@ -6,7 +6,6 @@ import Service.Input.InputArea;
 import Service.Process.*;
 import Service.entities.User;
 
-import javax.persistence.EntityManager;
 
 public final class AdminMenu {
     public static void ShowAdminMenu(User onlineUser){
