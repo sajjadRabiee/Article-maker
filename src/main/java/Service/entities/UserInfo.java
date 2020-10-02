@@ -13,7 +13,7 @@ public class UserInfo implements EntityInterface {
     @Column(name = "national_code" , unique = true)
     private String nationalCode;
     @Column(name = "address")
-    private String address;
+    private Address address;
     @Override
     public long getId() {
         return id;
@@ -40,11 +40,11 @@ public class UserInfo implements EntityInterface {
         this.nationalCode = nationalCode;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 }

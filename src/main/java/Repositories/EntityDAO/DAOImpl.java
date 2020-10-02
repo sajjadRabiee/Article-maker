@@ -57,13 +57,13 @@ public abstract class  DAOImpl<Obj extends EntityInterface> implements DAO<Obj> 
         return objects;
     }
 
-    public List findAll(Predicate<? super Obj> p){
+    public List<Obj> findAll(Predicate<Obj> p){
         TypedQuery<Obj> query = em.createQuery("select e from "+getObjClass().getName()+" e",getObjClass());
         List<Obj> objects = query.getResultList();
         return objects.stream().filter(p).collect(Collectors.toList());
     }
 
-    public <desObj extends EntityInterface> List<EntityInterface> findAll(Function<Obj,desObj> f){
+    public <desObj extends EntityInterface> void castAll(Function<Obj,desObj> f){
         TypedQuery<Obj> query = em.createQuery("select e from "+getObjClass().getName()+" e",getObjClass());
         List<Obj> objects = query.getResultList();
         Consumer<desObj> consumer = a -> {
@@ -76,7 +76,6 @@ public abstract class  DAOImpl<Obj extends EntityInterface> implements DAO<Obj> 
             }
         };
         objects.stream().map(f).forEach(consumer);
-        return objects.stream().map(f).collect(Collectors.toList());
     }
 
     @Override

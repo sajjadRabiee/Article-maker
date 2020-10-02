@@ -1,13 +1,25 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package Service.Process;
 
 import Repositories.EntityDAO.UserDAO;
+import Repositories.EntityDAO.UserInfoDAO;
 import Service.Input.InputArea;
 import Service.entities.User;
-
-import javax.persistence.EntityManager;
+import Service.entities.UserInfo;
+import java.io.PrintStream;
+import java.util.Iterator;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class AboutAllUsers {
-    public static void editRoleOfUsers(){
+    public AboutAllUsers() {
+    }
+
+    public static void editRoleOfUsers() {
         UserDAO userDAO = new UserDAO();
         System.out.println("please enter username of user that you want edit role of him : ");
         while(true) {
@@ -28,24 +40,50 @@ public class AboutAllUsers {
                 if (InputArea.getBool()){
                     if(currentUser.getRole().equals(StaticRoles.getAdminRole())){
                         currentUser.setRole(StaticRoles.getWriterRole());
-                    }else {
+                    } else {
                         currentUser.setRole(StaticRoles.getAdminRole());
                     }
+
                     userDAO.update(currentUser);
-                }else{
-                    break;
                 }
             }
         }
     }
 
-    protected static void showAllUsers(){
+    protected static void showAllUsers() {
         UserDAO userDAO = new UserDAO();
         for(User user : userDAO.selectAll()){
             System.out.println("-----------------------------------------------------------");
             System.out.println("Username : " + user.getUsername());
             System.out.println("Role : " + user.getRole().getTitle());
             System.out.println("-----------------------------------------------------------");
+        }
+
+    }
+
+    public static void castUsers() {
+        UserDAO userDAO = new UserDAO();
+        UserInfoDAO userInfoDAO = new UserInfoDAO();
+        Function<User, UserInfo> function = (a) -> {
+            UserInfo userInfo = new UserInfo();
+            userInfo.setId(a.getId());
+            userInfo.setUsername(a.getUsername());
+            userInfo.setAddress(a.getAddress());
+            userInfo.setNationalCode(a.getNationalCode());
+            return userInfo;
+        };
+        userDAO.castAll(function);
+        for(UserInfo uI : userInfoDAO.selectAll()){
+            System.out.println();
+        }
+    }
+
+    public static void findUser() {
+        UserDAO userDAO = new UserDAO();
+        Predicate<User> predicate = (a) -> {
+            return a.getRole().getTitle().equals("Admin");
+        };
+        for(User u : userDAO.findAll(predicate)){
 
         }
     }

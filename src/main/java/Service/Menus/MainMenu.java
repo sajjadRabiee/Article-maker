@@ -6,29 +6,27 @@ import Service.Process.Login;
 import Service.Process.Register;
 import Service.entities.User;
 
-import javax.persistence.EntityManager;
-
 public final class MainMenu {
     public static User onlineUser = new User();
 
     public static void showMenu() {
 
-        firstPage:
         while (true) {
 
             System.out.print("1.Login\n" +
                     "2.Register\n" +
                     "3.Search\n" +
+                    "4.Find All\n" +
+                    "5.Cast All\n" +
                     "type your choice : ");
-            inner:
-            switch (InputArea.getMenuNumber(3)) {
+            switch (InputArea.getMenuNumber(5)) {
                 //Login
                 case 1: {
                     onlineUser = Login.loginProcess();
                     System.out.println(onlineUser.getRole().getTitle());
-                    if (onlineUser.getRole().getTitle().equals("Admin")){
+                    if (onlineUser.getRole().getTitle().equals("Admin")) {
                         AdminMenu.ShowAdminMenu(onlineUser);
-                    }else if(onlineUser.getRole().getTitle().equals("Writer")){
+                    } else if (onlineUser.getRole().getTitle().equals("Writer")) {
                         WriterMenu.showWriterMenu(onlineUser);
                     }
                     break;
