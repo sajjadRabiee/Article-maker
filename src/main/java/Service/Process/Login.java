@@ -5,13 +5,11 @@ import Repositories.EntityManagerFactories.emf1;
 import Service.Input.InputArea;
 import Service.entities.User;
 
-import javax.persistence.EntityManager;
 import java.util.Optional;
 
 public final class Login {
 
     public static User loginProcess() {
-        EntityManager em = emf1.getEntityManager();
         UserDAO userDAO = new UserDAO();
 
         String username;
@@ -25,7 +23,7 @@ public final class Login {
                     System.out.print("please enter your password : ");
                     String password = InputArea.getPassword();
                     if (password.equals(user.getPassword())) {
-                        return (User) userDAO.selectByName(username).get();
+                        return userDAO.selectByName(username).get();
                     } else {
                         System.out.println("password is not corrected");
                         continue inner;
