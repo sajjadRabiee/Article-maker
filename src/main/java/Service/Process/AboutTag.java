@@ -4,7 +4,6 @@ import Repositories.EntityDAO.TagDAO;
 import Service.Input.InputArea;
 import Service.entities.Tag;
 
-import javax.persistence.EntityManager;
 import java.util.Optional;
 
 public class AboutTag {

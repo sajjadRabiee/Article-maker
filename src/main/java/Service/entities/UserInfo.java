@@ -3,10 +3,9 @@ package Service.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_info" , catalog = "schema2" , schema = "schema2")
+@Table(name = "user_info" , catalog = "schema1" , schema = "schema1")
 public class UserInfo implements EntityInterface {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column(name = "username" , unique = true)
     private String username;

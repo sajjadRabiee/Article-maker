@@ -8,7 +8,6 @@ import Service.entities.Category;
 import Service.entities.Tag;
 import Service.entities.User;
 
-import javax.persistence.EntityManager;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;

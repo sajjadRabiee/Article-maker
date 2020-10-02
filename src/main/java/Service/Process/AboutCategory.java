@@ -3,8 +3,6 @@ package Service.Process;
 import Repositories.EntityDAO.CategoryDAO;
 import Service.Input.InputArea;
 import Service.entities.Category;
-
-import javax.persistence.EntityManager;
 import java.util.Optional;
 
 public class AboutCategory {

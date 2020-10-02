@@ -10,8 +10,6 @@ import Repositories.EntityDAO.UserInfoDAO;
 import Service.Input.InputArea;
 import Service.entities.User;
 import Service.entities.UserInfo;
-import java.io.PrintStream;
-import java.util.Iterator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -77,19 +75,17 @@ public class AboutAllUsers {
             return userInfo;
         };
         userDAO.castAll(function);
-        for(UserInfo uI : userInfoDAO.selectAll()){
-            System.out.println(uI.getId());
-            System.out.println(uI.getUsername());
-            System.out.println(uI.getAddress().getCountry());
-            System.out.println(uI.getNationalCode());
-        }
+//        for(UserInfo uI : userInfoDAO.selectAll()){
+//            System.out.println(uI.getId());
+//            System.out.println(uI.getUsername());
+//            System.out.println(uI.getAddress().getCountry());
+//            System.out.println(uI.getNationalCode());
+//        }
     }
 
     public static void findUser() {
         UserDAO userDAO = new UserDAO();
-        Predicate<User> predicate = (a) -> {
-            return a.getRole().getTitle().equals("Admin");
-        };
+        Predicate<User> predicate = (a) -> a.getRole().getTitle().equals("Admin");
         for(User u : userDAO.findAll(predicate)){
             showUserInfo(u);
         }

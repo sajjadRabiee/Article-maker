@@ -3,8 +3,6 @@ package Service.Process;
 import Service.Input.InputArea;
 import Service.entities.User;
 
-import javax.persistence.EntityManager;
-
 public class AboutOnlineUser {
     public static void showUserInformation(User onlineUser){
         System.out.println("----- "+ onlineUser.getRole().getTitle() +" -----");

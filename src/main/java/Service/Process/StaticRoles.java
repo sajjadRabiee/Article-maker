@@ -1,10 +1,7 @@
 package Service.Process;
 
 import Repositories.EntityDAO.RoleDAO;
-import Service.MainClass;
 import Service.entities.Role;
-
-import javax.persistence.EntityManager;
 
 public final class StaticRoles {
     private static RoleDAO roleDAO = new RoleDAO();

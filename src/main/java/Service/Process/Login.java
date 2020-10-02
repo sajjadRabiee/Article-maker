@@ -1,7 +1,6 @@
 package Service.Process;
 
 import Repositories.EntityDAO.UserDAO;
-import Repositories.EntityManagerFactories.emf1;
 import Service.Input.InputArea;
 import Service.entities.User;
 
