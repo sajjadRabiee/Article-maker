@@ -75,12 +75,12 @@ public class AboutAllUsers {
             return userInfo;
         };
         userDAO.castAll(function);
-//        for(UserInfo uI : userInfoDAO.selectAll()){
-//            System.out.println(uI.getId());
-//            System.out.println(uI.getUsername());
-//            System.out.println(uI.getAddress().getCountry());
-//            System.out.println(uI.getNationalCode());
-//        }
+        for(UserInfo uI : userInfoDAO.selectAll()){
+            System.out.println(uI.getId());
+            System.out.println(uI.getUsername());
+            System.out.println(uI.getAddress().getCountry());
+            System.out.println(uI.getNationalCode());
+        }
     }
 
     public static void findUser() {

@@ -9,7 +9,7 @@ public class UserInfo implements EntityInterface {
     private long id;
     @Column(name = "username" , unique = true)
     private String username;
-    @Column(name = "national_code" , unique = true)
+    @Column(name = "national_code" , unique = false)
     private String nationalCode;
     @Column(name = "address")
     private Address address;
