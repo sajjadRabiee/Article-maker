@@ -1,2 +1,1 @@
-# MaktabsharifHW11
-HW11 about article
+# a simple java project for create articles
